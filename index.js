@@ -1,7 +1,6 @@
 const venom = require('venom-bot');
 const Discord = require("discord.js");
 const bot = new Discord.Client({ disableMentions: 'everyone' });
-const db = require("quick.db");
 // Define Libraries Needed
 
 
@@ -13,10 +12,10 @@ venom
   });
 // creates a new client for venom
 
-const ApplicationChannel = "(channel id here)"
-const phoneNumber = "(phone number here)@c.us"
-const tokenvariable = "TOKEN HERE"
-// global variables, phone number and discord channel and token
+const TargetChannel = process.env.CHANNEL
+const phoneNumber = process.env.NUMBER
+// global variables, phone number and discord channel
+
 
 
 
@@ -28,13 +27,14 @@ function WhatsappToDiscord(message){
 
 
 
-
 function start(client) {
   client.onMessage((message) => {
 
     if (message.isGroupMsg === false) {  // if whatsapp message isnt in group, 
       WhatsappToDiscord(message)  // send the message content to discord, and then send to phone number in whatsapp 
     }
+
+    
     
   });
 
@@ -63,9 +63,11 @@ function start(client) {
 
   bot.on("message", async (message) => {
     if(message.author.id === bot.user.id) return; // if message author is the bot, return;
+    if(message.author.id === "726437002874191934") return; // returns if message author is xylo
     if(message.channel.id != TargetChannel) return; // if it isnt in the designated channel, return;
     if(message.attachments.size > 0) return attachment(message); // if there is an attachment, return function "attachment(messasge)"
     if(message.content.length < 0) return client.sendText("[Empty message]") // if content length is nothing, send a placeholder
+
     const textcontent = message.content.replace("<@!879650462549295164>","@xylo") // if someone pings the bot, it'll replace with "@xylo"
     client.sendText(phoneNumber, `${message.member.displayName}: ${textcontent}`) // otherwise, send to phone number, message content
 
@@ -76,5 +78,11 @@ function start(client) {
 
 
 
-bot.login(tokenvariable)
+
+
+
+
+
+
+bot.login(process.env.TOKEN)
 // login to bot on discord
