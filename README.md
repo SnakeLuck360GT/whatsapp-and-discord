@@ -7,5 +7,5 @@
 
 ## To be added
 - Status as last online/online now
-- Be able to use attachments
+- Be able to use attachments (DONE)
 - Use Canvas, to simulate real Discord
