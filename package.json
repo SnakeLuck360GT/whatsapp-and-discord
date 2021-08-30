@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^12.5.3",
+    "puppeteer": "^10.2.0",
     "venom-bot": "^3.1.2"
   }
 }
